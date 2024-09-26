@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie"
-import './Login.css'; // Import CSS for styling
+import './login.css'; // Import CSS for styling
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // For navigation after login
 
