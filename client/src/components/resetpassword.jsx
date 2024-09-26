@@ -23,7 +23,7 @@ const ResetPassword = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await axios.post('http://localhost:4000/auth/resetpassword', {
+      const response = await axios.post('https://login-signup-u9xi.onrender.com/auth/resetpassword', {
         token,
         password,
       });

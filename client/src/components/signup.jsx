@@ -27,7 +27,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/auth/signup", formData);
+      const response = await axios.post("https://login-signup-u9xi.onrender.com/auth/signup", formData);
 
       // Check for response status
       if (response.status === 201) {

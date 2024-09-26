@@ -24,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/auth/login", formData);
+      const response = await axios.post("https://login-signup-u9xi.onrender.com/auth/login", formData);
       
       // Extract the token from the response
       const { token } = response.data;
