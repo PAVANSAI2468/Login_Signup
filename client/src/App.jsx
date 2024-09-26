@@ -6,13 +6,13 @@ import Dashboard from "./components/dashboard"
 import ResetPassword from "./components/resetpassword"
 function App() {
   return (
-       <BrowserRouter>
+       <BrowserRouter basename="/">
        <Routes>
         <Route exact path="/signup" element={<Signup/>}></Route>
         <Route exact path="/login" element={<Login/>}></Route>
         <Route exact path="/forgot_password" element={<ForgotPassword/>}></Route>
         <Route exact path="/resetpassword" element={<ResetPassword/>}></Route>
-        <Route exact path="/dashboard" element={<Dashboard/>}></Route>
+        <Route exact path="/" element={<Dashboard/>}></Route>
        </Routes>
        </BrowserRouter>
   )
