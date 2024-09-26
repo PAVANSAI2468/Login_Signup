@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom"
-import './signUp.css'; // Importing CSS
+import './signup.css'; // Importing CSS
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Importing useHistory
 
