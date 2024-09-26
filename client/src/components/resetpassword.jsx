@@ -1,60 +1,51 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './resetpassword.css'; // Optional: Create CSS for styling
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get('token');
-
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false); // To handle loading state
+  const [searchParams] = useSearchParams();  // To capture the query parameters
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const token = searchParams.get('token');  // Extract the token from the URL
 
-  const handleResetPassword = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
-
+    if (!token) {
+      setErrorMessage('Invalid or expired token');
+      return;
+    }
+    
     try {
       const response = await axios.post('https://login-signup-u9xi.onrender.com/auth/resetpassword', {
-        token,
         password,
+        token,  // Send token to backend for validation
       });
       
-      setSuccessMessage(response.data); // Adjust based on your backend response structure
-      // Optionally navigate to the login page after a successful reset
-      setTimeout(() => navigate('/login'), 2000);
-    } catch (error) {
-      setErrorMessage(error.response?.data?.message || 'Failed to reset password');
-    } finally {
-      setLoading(false); // Stop loading
+      if (response.status === 200) {
+        setSuccessMessage("Password reset successfully!");
+      }
+    } catch (err) {
+      console.error(err.message);
+      setErrorMessage(err.response?.data?.message || 'Failed to reset password.');
     }
   };
 
   return (
-    <div className="reset-password-container">
+    <div>
       <h2>Reset Password</h2>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      <form onSubmit={handleResetPassword}>
-        <div className="input-container">
-          <label htmlFor="password">New Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>Reset Password</button> {/* Disable button while loading */}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="Enter new password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Reset Password</button>
       </form>
     </div>
   );

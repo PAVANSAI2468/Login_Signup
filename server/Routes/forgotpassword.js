@@ -11,16 +11,16 @@ router.post('/forgotpassword', async (req, res) => {
   const { email } = req.body;
   
   // Log the email for debugging purposes
-  const user=await User.findOne({email});
-
-  console.log("Recipient Email:", email);
-  
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
   }
-
-  const resettoken=await jwt.sign({email},process.env.SECRET_KEY,{expiresIn:'1h'})
-
+  
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  
+  const resettoken = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn: '1h' });
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

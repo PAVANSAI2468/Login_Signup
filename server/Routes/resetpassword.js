@@ -7,32 +7,31 @@ import User from "../Models/User.js";
 dotenv.config();
 const router = express.Router();
 
-router.post("/resetpassword", async (req, res) => {
-    const { password, token } = req.body;
-
-    try {
-        // Verify the token
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        console.log(decoded);
-
-        // Extract user ID from the decoded token
-        const email = decoded.email;
-
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Update the user password in the database
-        await User.findOneAndUpdate(
-            { email: email },
-            { password: hashedPassword },
-            { new: true } // Return the updated document
-        );
-
-        res.status(200).send("Reset password successfully");
-    } catch (err) {
-        console.error(err); // Log error for debugging
-        return res.status(401).send("Invalid token");
+router.post('/resetpassword', async (req, res) => {
+    const { token, password } = req.body;
+  
+    if (!token || !password) {
+      return res.status(400).json({ message: 'Token and password are required' });
     }
-});
-
+  
+    try {
+      // Verify token
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
+      const user = await User.findOne({ email: decoded.email });
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Hash the new password (using bcrypt)
+      user.password = await bcrypt.hash(password, 10);
+      await user.save();
+  
+      res.status(200).json({ message: 'Password reset successfully' });
+    } catch (error) {
+      console.error('Invalid or expired token:', error);
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+  });
+  
 export default router;
