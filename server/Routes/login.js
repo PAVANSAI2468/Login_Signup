@@ -1,5 +1,5 @@
 import express from "express"
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 import dotenv from "dotenv"
 dotenv.config()
 import User from '../Models/User.js'
