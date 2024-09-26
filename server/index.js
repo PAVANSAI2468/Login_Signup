@@ -9,7 +9,11 @@ import cors from "cors";
 dotenv.config()
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://login-signup-frontend-i0ta.onrender.com', // Allow only your frontend
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true // Allow credentials like cookies
+}));
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
