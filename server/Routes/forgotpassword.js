@@ -33,7 +33,7 @@ router.post('/forgotpassword', async (req, res) => {
     from: process.env.EMAIL_USER,  // Your email address
     to: email,                     // Recipient email
     subject: "Reset Password",
-    text: `http://localhost:5173/resetpassword?token=${resettoken}`,
+    text: `https://login-signup-frontend-i0ta.onrender.com/resetpassword?token=${resettoken}`,
   };
 
   try {
