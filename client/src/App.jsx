@@ -16,8 +16,11 @@ function App() {
           path="/forgot_password"
           element={<ForgotPassword />}
         ></Route>
-        <Route exact path="/resetpassword" element={<ResetPassword />}></Route>{" "}
-        {/* Route should match exactly */}
+        <Route
+          exact
+          path="/resetpassword/:token"
+          element={<ResetPassword />}
+        ></Route>
         <Route exact path="/" element={<Dashboard />}></Route>
       </Routes>
     </BrowserRouter>

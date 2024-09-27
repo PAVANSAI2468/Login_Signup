@@ -4,15 +4,16 @@ import signupRoute from './Routes/signup.js'; // Use .js extension
 import loginRoute from "./Routes/login.js"
 import ForgotPasswordRoute from './Routes/forgotpassword.js';
 import ResetPasswordRoute from './Routes/resetpassword.js';
+
 import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config()
 
 const app = express();
 app.use(cors({
-  origin: 'https://login-signup-frontend-i0ta.onrender.com', // Allow only your frontend
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true // Allow credentials like cookies
+  origin: 'https://login-signup-frontend-i0ta.onrender.com',  // Your frontend's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,  // If using credentials like cookies or authorization headers
 }));
 // Middleware to parse JSON request bodies
 app.use(express.json());

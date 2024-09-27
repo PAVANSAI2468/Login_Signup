@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [searchParams] = useSearchParams(); // To capture the query parameters
+  // To capture the query parameters
 
-  const token = searchParams.get("token"); // Extract the token from the URL
+  const { token } = useParams(); // Extract the token from the URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +19,10 @@ const ResetPassword = () => {
     console.log(token);
     try {
       const response = await axios.post(
-        "https://login-signup-u9xi.onrender.com/auth/resetpassword",
+        "https://login-signup-u9xi.onrender.com/auth/resetpassword/" + token,
         {
           password,
-          token, // Send token to backend for validation
+          // Send token to backend for validation
         }
       );
 

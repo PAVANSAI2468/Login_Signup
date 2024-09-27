@@ -8,7 +8,8 @@ dotenv.config();
 const router = express.Router();
 
 router.post('/resetpassword', async (req, res) => {
-    const { token, password } = req.body;
+    const { password } = req.body;
+    const {token}=req.params;
   
     if (!token || !password) {
       return res.status(400).json({ message: 'Token and password are required' });
