@@ -29,6 +29,11 @@ app.use("/auth",loginRoute);
 app.use("/auth",ForgotPasswordRoute);
 app.use("/auth",ResetPasswordRoute);
 
+// This should be placed after all your API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'path/to/your/build/index.html'));
+});
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
