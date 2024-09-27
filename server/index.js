@@ -35,11 +35,11 @@ app.use("/auth", ResetPasswordRoute);
 
 // Serve Vite build in production
 const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '../client/dist'))); // Adjust the path to match your structure
 
-app.use(express.static(path.join(__dirname, 'dist'))); // Adjust the path as needed
-
+// Serve the index.html file for all other requests
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Ensure this path matches your build output
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html')); // Ensure this path matches your build output
 });
 
 // Start the server
