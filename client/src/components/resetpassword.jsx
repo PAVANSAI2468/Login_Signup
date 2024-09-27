@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./resetpassword.css";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  // To capture the query parameters
-
-  const { token } = useParams(); // Extract the token from the URL
+  const { token } = useParams(); // Extract token from the URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,14 +15,11 @@ const ResetPassword = () => {
       setErrorMessage("Invalid or expired token");
       return;
     }
-    console.log(token);
+
     try {
       const response = await axios.post(
-        "https://login-signup-u9xi.onrender.com/auth/resetpassword/" + token,
-        {
-          password,
-          // Send token to backend for validation
-        }
+        `https://login-signup-u9xi.onrender.com/auth/resetpassword/${token}`,
+        { password }
       );
 
       if (response.status === 200) {

@@ -3,7 +3,7 @@ import Signup from "./components/signup";
 import Login from "./components/login";
 import ForgotPassword from "./components/forgotPassword";
 import Dashboard from "./components/dashboard";
-import ResetPassword from "./components/resetpassword"; // Update the import if file names differ
+import ResetPassword from "./components/resetpassword";
 
 function App() {
   return (
