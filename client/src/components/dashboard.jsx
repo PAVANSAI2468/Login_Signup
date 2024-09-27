@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie"; // Make sure to install js-cookie
 
 const Dashboard = () => {
@@ -15,6 +15,12 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <nav className="navbar">
         <h1>Dashboard</h1>
+        <Link to="/login">
+          <h1>Login</h1>
+        </Link>
+        <Link to="/signup">
+          <h1>Signup</h1>
+        </Link>
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>
