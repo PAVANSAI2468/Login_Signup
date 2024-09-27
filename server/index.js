@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import path from "path"
+
 import signupRoute from './Routes/signup.js'; // Use .js extension
 import loginRoute from "./Routes/login.js"
 import ForgotPasswordRoute from './Routes/forgotpassword.js';
@@ -29,10 +31,21 @@ app.use("/auth",loginRoute);
 app.use("/auth",ForgotPasswordRoute);
 app.use("/auth",ResetPasswordRoute);
 
-// This should be placed after all your API routes
+import path from 'path';
+
+// Other route definitions...
+
+// Serve Vite build in production
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, 'dist'))); // Adjust the path as needed
+
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'path/to/your/build/index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Ensure this path matches your build output
 });
+
+
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
